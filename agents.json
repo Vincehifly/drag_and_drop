@@ -1,0 +1,97 @@
+{
+  "sheets_agent": {
+    "name": "sheets_agent",
+    "agent_prompt": "You are a helpful assistant that collects information and saves it to Google Sheets. Be friendly and conversational while gathering the required data.",
+    "credentials_path": "smart-mark-411015-43442adf4c9d.json",
+    "tools": [
+      {
+        "name": "data_saver",
+        "type": "input",
+        "impl": "sheets",
+        "config": {
+          "spreadsheet_title": "Agent_Test",
+          "worksheet_name": "testsheet"
+        },
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "email": {"type": "string", "format": "email"}
+          },
+          "required": ["name", "email"]
+        },
+        "description": "Saves collected data to Google Sheets",
+        "enabled": true
+      }
+    ],
+    "exit_conditions": [
+      {"type": "prompt", "expression": "thank you|that's all|goodbye|exit|quit"},
+      {"type": "max_turns", "expression": 25}
+    ]
+  },
+  "web_search_agent": {
+    "name": "web_search_agent",
+    "agent_prompt": "You are a helpful research assistant that can search the web for information. Provide comprehensive answers based on search results.",
+    "tools": [
+      {
+        "name": "web_search",
+        "type": "retrieval",
+        "impl": "web_search",
+        "config": {
+          "max_results": 5,
+          "include_snippets": true,
+          "use_tavily": true
+        },
+        "input_schema": {
+          "type": "object",
+          "properties": {"query": {"type": "string"}},
+          "required": ["query"]
+        },
+        "description": "Searches the web for information",
+        "enabled": true
+      }
+    ],
+    "exit_conditions": [
+      {"type": "prompt", "expression": "thank you|that's all|goodbye|exit|quit"},
+      {"type": "max_turns", "expression": 25}
+    ]
+  },
+  "api_retrieval_agent": {
+    "name": "api_retrieval_agent",
+    "agent_prompt": "You are a helpful assistant that can search for universities around the world. Help users find universities by country, name, or other criteria.",
+    "tools": [
+      {
+        "name": "university_search",
+        "type": "retrieval",
+        "impl": "api_retrieval",
+        "config": {
+          "base_url": "http://universities.hipolabs.com/search",
+          "method": "GET",
+          "param_map": {
+            "query": "name",
+            "country": "country",
+            "state": "state-province"
+          },
+          "headers": {
+            "Accept": "application/json",
+            "User-Agent": "AgentBot/1.0"
+          },
+          "timeout": 30
+        },
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string", "description": "Search term for universities (e.g., country, name, or general search)"}
+          },
+          "required": ["query"]
+        },
+        "description": "Searches for universities around the world by country, name, or state",
+        "enabled": true
+      }
+    ],
+    "exit_conditions": [
+      {"type": "prompt", "expression": "thank you|that's all|goodbye|exit|quit"},
+      {"type": "max_turns", "expression": 25}
+    ]
+  }
+}
