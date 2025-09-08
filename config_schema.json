@@ -67,6 +67,18 @@
       "description": "List of exit conditions; at least one is required. Conditions are evaluated according to exit_condition_mode."
     },
     "action_memory_size": { "type": "integer", "default": 5, "minimum": 0 },
+    "translation": {
+      "type": "object",
+      "description": "Translation configuration for multilingual support",
+      "properties": {
+        "enabled": { "type": "boolean", "default": false, "description": "Whether translation is enabled" },
+        "source_language": { "type": "string", "description": "Source language for user input (e.g., 'Hungarian')" },
+        "target_language": { "type": "string", "description": "Target language for processing (e.g., 'English')" },
+        "response_language": { "type": "string", "description": "Language for agent responses (e.g., 'Hungarian')" }
+      },
+      "required": ["enabled", "source_language", "target_language", "response_language"],
+      "additionalProperties": false
+    },
     "metadata": { "type": "object", "description": "Arbitrary metadata for the agent (owner, tags, environment).", "additionalProperties": true }
   },
   

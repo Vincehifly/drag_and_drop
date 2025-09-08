@@ -668,7 +668,15 @@ def execute_tool(tool_type: str, extracted_data: Dict[str, Any], config: Dict[st
     try:
         # Debug: show which tool is requested and what tools are available
         # concise logging removed (no DEBUG prints)
-        tool_func = AVAILABLE_TOOLS.get(tool_type, AVAILABLE_TOOLS["generic"])
+        if tool_type not in AVAILABLE_TOOLS:
+            return {
+                "success": False,
+                "data": extracted_data,
+                "type": tool_type,
+                "message": f"Tool '{tool_type}' not found. Available tools: {list(AVAILABLE_TOOLS.keys())}",
+                "error": f"Unknown tool type: {tool_type}"
+            }
+        tool_func = AVAILABLE_TOOLS[tool_type]
         # concise logging removed
         return tool_func(extracted_data, config, verbose)
     except Exception as e:

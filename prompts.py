@@ -398,3 +398,57 @@ ASSISTANT RESPONSE:
 """
 
     return prompt
+
+# --- Translation Prompt Templates --- #
+
+def build_input_translation_prompt(
+    system_prompt: str,
+    user_message: str,
+    source_language: str,
+    target_language: str = "English"
+) -> str:
+    """
+    Build a prompt for translating user input from source language to target language.
+    """
+    prompt = f"""SYSTEM PROMPT: {system_prompt}
+
+TRANSLATION TASK: Translate the user's message from {source_language} to {target_language}.
+
+USER MESSAGE ({source_language}): "{user_message}"
+
+INSTRUCTIONS:
+1. Translate the message accurately while preserving the original meaning and intent
+2. Maintain the conversational tone and context
+3. Keep any proper nouns, names, or technical terms as they are
+4. If the message is already in {target_language}, return it unchanged
+5. Return ONLY the translated text, no explanations or additional text
+
+TRANSLATED MESSAGE ({target_language}):"""
+
+    return prompt
+
+def build_output_translation_prompt(
+    system_prompt: str,
+    assistant_message: str,
+    source_language: str = "English",
+    target_language: str = "Hungarian"
+) -> str:
+    """
+    Build a prompt for translating assistant response from source language to target language.
+    """
+    prompt = f"""SYSTEM PROMPT: {system_prompt}
+
+TRANSLATION TASK: Translate the assistant's response from {source_language} to {target_language}.
+
+ASSISTANT MESSAGE ({source_language}): "{assistant_message}"
+
+INSTRUCTIONS:
+1. Translate the message accurately while preserving the original meaning and intent
+2. Maintain the professional, helpful tone
+3. Keep any proper nouns, names, or technical terms as they are
+4. If the message is already in {target_language}, return it unchanged
+5. Return ONLY the translated text, no explanations or additional text
+
+TRANSLATED MESSAGE ({target_language}):"""
+
+    return prompt

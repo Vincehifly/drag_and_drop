@@ -1,5 +1,35 @@
+# Core LangChain and LangGraph
 langchain>=0.1.0
 langgraph>=0.0.10
+langchain-core>=0.3.72
+
+# Azure OpenAI (for llm_client)
+langchain-openai>=0.2.0
+
+# Google Sheets integration
 gspread>=5.10.0
+google-auth>=1.12.0
+google-auth-oauthlib>=0.4.1
+
+# Web search (Tavily)
+tavily-python>=0.3.0
+
+# HTTP requests for API tools
+requests>=2.31.0
+
+# Data visualization
 matplotlib>=3.7.0
 networkx>=3.1
+
+# Jupyter notebook support
+ipykernel>=6.30.0
+jupyter>=1.1.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# RAG and PDF processing
+chromadb>=0.4.0
+pypdf>=3.0.0
+
+# Note: asyncio is part of Python standard library, no need to install

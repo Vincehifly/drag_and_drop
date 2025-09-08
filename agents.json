@@ -1,8 +1,14 @@
 {
   "sheets_agent": {
     "name": "sheets_agent",
-    "agent_prompt": "You are a helpful assistant that collects information and saves it to Google Sheets. Be friendly and conversational while gathering the required data.",
+    "agent_prompt": "You are a helpful assistant that collects contact information (name and email) and saves it to Google Sheets. Be friendly and conversational while gathering the required data. You need to collect: 1) Full name, 2) Email address. Once you have both pieces of information, use the data_saver tool to save them.",
     "credentials_path": "smart-mark-411015-43442adf4c9d.json",
+    "translation": {
+      "enabled": true,
+      "source_language": "Hungarian",
+      "target_language": "English",
+      "response_language": "Hungarian"
+    },
     "tools": [
       {
         "name": "data_saver",
@@ -20,7 +26,7 @@
           },
           "required": ["name", "email"]
         },
-        "description": "Saves collected data to Google Sheets",
+        "description": "Saves contact information (name and email) to Google Sheets",
         "enabled": true
       }
     ],
@@ -32,6 +38,12 @@
   "web_search_agent": {
     "name": "web_search_agent",
     "agent_prompt": "You are a helpful research assistant that can search the web for information. Provide comprehensive answers based on search results.",
+    "translation": {
+      "enabled": true,
+      "source_language": "Hungarian",
+      "target_language": "English",
+      "response_language": "Hungarian"
+    },
     "tools": [
       {
         "name": "web_search",
@@ -59,6 +71,12 @@
   "api_retrieval_agent": {
     "name": "api_retrieval_agent",
     "agent_prompt": "You are a helpful assistant that can search for universities around the world. Help users find universities by country, name, or other criteria.",
+    "translation": {
+      "enabled": true,
+      "source_language": "Hungarian",
+      "target_language": "English",
+      "response_language": "Hungarian"
+    },
     "tools": [
       {
         "name": "university_search",

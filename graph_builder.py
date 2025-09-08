@@ -13,7 +13,7 @@ from nodes import (
     chat_node, wait_user_input_node, decision_router_node,
     tool_execution_node, end_node, set_prompt_functions,
     structured_extractor_node, validate_inputs_node, exit_evaluator_node,
-    tool_answer_node
+    tool_answer_node, input_translation_node, output_translation_node
 )
 
 def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose: bool = True):
@@ -56,6 +56,10 @@ def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose
     graph.add_node("tool_execution", lambda state: tool_execution_node(state, config, llm, verbose))
     graph.add_node("end", lambda state: end_node(state, config, llm, verbose))
     
+    # Add translation nodes
+    graph.add_node("input_translation", lambda state: input_translation_node(state, config, llm, verbose))
+    graph.add_node("output_translation", lambda state: output_translation_node(state, config, llm, verbose))
+    
     # Set entry point - start by waiting for user input
     graph.set_entry_point("wait_user_input")
     
@@ -67,8 +71,12 @@ def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose
     except Exception:
         tool_names = []
     
-    # SIMPLIFIED UNIFIED ARCHITECTURE:
-    # All tools follow the same path: structured_extractor → validate_inputs → tool_execution → tool_answer → wait_user_input
+    # Check if translation is enabled
+    translation_enabled = config.get("translation", {}).get("enabled", False)
+    
+    # SIMPLIFIED UNIFIED ARCHITECTURE WITH TRANSLATION:
+    # With translation: wait_user_input → input_translation → decision_router → [chat/tools] → output_translation → wait_user_input
+    # Without translation: wait_user_input → decision_router → [chat/tools] → wait_user_input
     
     # Decision router: routes to chat, tools, or end
     def decision_router_fn(state):
@@ -95,11 +103,22 @@ def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose
         }
     )
     
-    # Chat conversation flow: always allow chat -> wait_user_input
-    graph.add_edge("chat", "wait_user_input")
+    # Chat conversation flow: route based on translation setting
+    if translation_enabled:
+        # With translation: chat -> output_translation -> wait_user_input
+        graph.add_edge("chat", "output_translation")
+    else:
+        # Without translation: chat -> wait_user_input
+        graph.add_edge("chat", "wait_user_input")
     
-    # Always route user input to the decision router
-    graph.add_edge("wait_user_input", "decision_router")
+    # Route user input based on translation setting
+    if translation_enabled:
+        # With translation: wait_user_input -> input_translation -> decision_router
+        graph.add_edge("wait_user_input", "input_translation")
+        graph.add_edge("input_translation", "decision_router")
+    else:
+        # Without translation: wait_user_input -> decision_router
+        graph.add_edge("wait_user_input", "decision_router")
     
     # Unified tool execution flow: structured_extractor → validate_inputs → tool_execution → tool_answer → wait_user_input
     graph.add_edge("structured_extractor", "validate_inputs")
@@ -121,8 +140,14 @@ def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose
     # After tool execution, always go to tool_answer
     graph.add_edge("tool_execution", "tool_answer")
     
-    # After tool_answer, always go to wait_user_input
-    graph.add_edge("tool_answer", "wait_user_input")
+    # After tool_answer, route based on translation setting
+    if translation_enabled:
+        # With translation: tool_answer -> output_translation -> wait_user_input
+        graph.add_edge("tool_answer", "output_translation")
+        graph.add_edge("output_translation", "wait_user_input")
+    else:
+        # Without translation: tool_answer -> wait_user_input
+        graph.add_edge("tool_answer", "wait_user_input")
     
     # Exit evaluation routing
     def exit_router(state):
@@ -145,7 +170,11 @@ def create_conversation_graph(config: dict, llm, prompt_functions: dict, verbose
     
     if verbose:
         print("Graph compiled successfully with simplified unified architecture!")
-        print("All tools follow the same path: structured_extractor → validate_inputs → tool_execution → tool_answer → wait_user_input")
+        if translation_enabled:
+            print("Translation ENABLED - Flow: wait_user_input → input_translation → decision_router → [chat/tools] → output_translation → wait_user_input")
+        else:
+            print("Translation DISABLED - Flow: wait_user_input → decision_router → [chat/tools] → wait_user_input")
+        print("All tools follow the same path: structured_extractor → validate_inputs → tool_execution → tool_answer")
         
     return compiled_graph
 

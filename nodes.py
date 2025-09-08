@@ -12,7 +12,7 @@ except Exception:
     _format_search_results = None
 from validation import get_missing_fields, is_data_complete
 from llm_client import create_json_mode_llm, create_conversation_llm
-from prompts import  build_tool_answer_prompt
+from prompts import build_tool_answer_prompt, build_input_translation_prompt, build_output_translation_prompt
 from utilities import *
 
 # Global variables for prompt functions (injected at runtime)
@@ -892,3 +892,168 @@ def end_node(state: ConversationState, config: dict, llm, verbose: bool = True) 
     
     log_node_execution("END", old_state, new_state, verbose)
     return new_state
+
+
+def input_translation_node(state: ConversationState, config: dict, llm, verbose: bool = True) -> Dict[str, Any]:
+    """
+    Translate user input from source language to target language (English) for processing.
+    Only executes if translation is enabled in config.
+    """
+    old_state = state.copy()
+    
+    # Check if translation is enabled
+    translation_config = config.get("translation", {})
+    translation_enabled = translation_config.get("enabled", False)
+    
+    if not translation_enabled:
+        if verbose:
+            print("Translation disabled, skipping input translation")
+        # Set translation fields to indicate no translation
+        new_state = {
+            **old_state,
+            "translation_enabled": False,
+            "original_language": "English",
+            "translated_input": old_state.get("user_input", ""),
+            "target_language": "English"
+        }
+        log_node_execution("INPUT_TRANSLATION", old_state, new_state, verbose)
+        return new_state
+    
+    # Get translation settings
+    source_language = translation_config.get("source_language", "Hungarian")
+    target_language = translation_config.get("target_language", "English")
+    user_input = old_state.get("user_input", "")
+    
+    if verbose:
+        print(f"Translating input from {source_language} to {target_language}")
+    
+    # Create translation prompt using the structured template
+    translation_prompt = build_input_translation_prompt(
+        system_prompt=BASE_SYSTEM_PROMPT or "You are a helpful translation assistant.",
+        user_message=user_input,
+        source_language=source_language,
+        target_language=target_language
+    )
+    
+    try:
+        # Perform translation
+        translation_result = llm.invoke(translation_prompt).content.strip()
+        
+        if verbose:
+            print(f"Translation result: '{translation_result}'")
+        
+        # Update state with translation results
+        new_state = {
+            **old_state,
+            "translation_enabled": True,
+            "original_language": source_language,
+            "translated_input": translation_result,
+            "target_language": target_language,
+            "user_input": translation_result  # Update user_input with translated version for processing
+        }
+        
+        log_node_execution("INPUT_TRANSLATION", old_state, new_state, verbose)
+        return new_state
+        
+    except Exception as e:
+        if verbose:
+            print(f"Translation failed: {e}")
+        
+        # Fallback: use original input without translation
+        new_state = {
+            **old_state,
+            "translation_enabled": False,
+            "original_language": source_language,
+            "translated_input": user_input,
+            "target_language": target_language,
+            "error_message": f"Translation failed: {e}"
+        }
+        
+        log_node_execution("INPUT_TRANSLATION", old_state, new_state, verbose)
+        return new_state
+
+
+def output_translation_node(state: ConversationState, config: dict, llm, verbose: bool = True) -> Dict[str, Any]:
+    """
+    Translate agent response from target language (English) back to response language.
+    Only executes if translation is enabled in config.
+    """
+    old_state = state.copy()
+    
+    # Check if translation is enabled
+    translation_config = config.get("translation", {})
+    translation_enabled = translation_config.get("enabled", False)
+    
+    if not translation_enabled:
+        if verbose:
+            print("Translation disabled, skipping output translation")
+        log_node_execution("OUTPUT_TRANSLATION", old_state, old_state, verbose)
+        return old_state
+    
+    # Get translation settings
+    target_language = translation_config.get("target_language", "English")
+    response_language = translation_config.get("response_language", "Hungarian")
+    
+    # Get the last message from the agent (should be the response to translate)
+    messages = old_state.get("messages", [])
+    if not messages:
+        if verbose:
+            print("No messages to translate")
+        log_node_execution("OUTPUT_TRANSLATION", old_state, old_state, verbose)
+        return old_state
+    
+    # Get the last agent message
+    last_message = messages[-1]
+    if last_message.get("role") != "assistant":
+        if verbose:
+            print("Last message is not from assistant, skipping translation")
+        log_node_execution("OUTPUT_TRANSLATION", old_state, old_state, verbose)
+        return old_state
+    
+    agent_response = last_message.get("content", "")
+    
+    if verbose:
+        print(f"Translating response from {target_language} to {response_language}")
+    
+    # Create translation prompt using the structured template
+    translation_prompt = build_output_translation_prompt(
+        system_prompt=BASE_SYSTEM_PROMPT or "You are a helpful translation assistant.",
+        assistant_message=agent_response,
+        source_language=target_language,
+        target_language=response_language
+    )
+    
+    try:
+        # Perform translation
+        translation_result = llm.invoke(translation_prompt).content.strip()
+        
+        if verbose:
+            print(f"Response translation result: '{translation_result}'")
+        
+        # Update the last message with translated content
+        updated_messages = messages.copy()
+        updated_messages[-1] = {
+            **last_message,
+            "content": translation_result
+        }
+        
+        new_state = {
+            **old_state,
+            "messages": updated_messages
+        }
+        
+        log_node_execution("OUTPUT_TRANSLATION", old_state, new_state, verbose)
+        return new_state
+        
+    except Exception as e:
+        if verbose:
+            print(f"Response translation failed: {e}")
+        
+        # Fallback: keep original response
+        new_state = {
+            **old_state,
+            "error_message": f"Response translation failed: {e}"
+        }
+        
+        log_node_execution("OUTPUT_TRANSLATION", old_state, new_state, verbose)
+        return new_state

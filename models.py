@@ -25,6 +25,11 @@ class ConversationState(TypedDict):
     action_history: List[Dict[str, Any]]
     clarification_message: str
     validation_errors: List[str]
+    # Translation fields
+    original_language: str          # User's original language (e.g., "Hungarian")
+    translated_input: str          # User input translated to English
+    translation_enabled: bool      # Whether translation is active
+    target_language: str          # Target language for responses (e.g., "Hungarian")
 
 # Type definitions
 NodeAction = Literal["chat", "input_extractor", "decision_router", "tool_use", "end"]
