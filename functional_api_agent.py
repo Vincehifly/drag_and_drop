@@ -93,8 +93,12 @@ def react_agent_task(user_input: str) -> Dict[str, Any]:
     """Use the LangGraph React agent to handle the user input with RAG and web search capabilities."""
     print(f"🤖 [REACT AGENT] Processing: {user_input}")
     
-    # Use the React agent to process the input
-    config = {"configurable": {"thread_id": "functional-react-agent"}}
+    # Get the current thread_id from the context (this should be passed automatically)
+    # For now, use a unique thread_id based on the input to ensure isolation
+    import hashlib
+    thread_id = f"react-{hashlib.md5(user_input.encode()).hexdigest()[:8]}"
+    config = {"configurable": {"thread_id": thread_id}}
+    
     response = react_agent.invoke({"messages": [{"role": "user", "content": user_input}]}, config)
     
     # Extract the response content

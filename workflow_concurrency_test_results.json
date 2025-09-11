@@ -1,0 +1,717 @@
+{
+  "timestamp": "2025-09-10T11:57:06.351307",
+  "concurrent_execution": {
+    "total_duration": 11.264302730560303,
+    "successful": 7,
+    "failed": 0,
+    "efficiency": 2.9165744929031954
+  },
+  "workflow_isolation": {
+    "isolation_success": false
+  },
+  "resource_contention": {
+    "simultaneous_workflows": 15,
+    "successful": 15,
+    "total_time": 4.152961015701294,
+    "success_rate": 1.0
+  },
+  "overall_success": true,
+  "detailed_events": [
+    {
+      "workflow_id": "test_master",
+      "event": "concurrent_test_started",
+      "timestamp": "2025-09-10T11:56:48.560687",
+      "thread_id": 21944,
+      "data": {
+        "workflow_count": 7,
+        "workflow_types": [
+          "fast",
+          "medium",
+          "complex"
+        ]
+      }
+    },
+    {
+      "workflow_id": "fast_1",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.561686",
+      "thread_id": 21944,
+      "data": {
+        "query": "Hello",
+        "session_id": "workflow_fast_1_1757498208561",
+        "expected_duration": 1.0
+      }
+    },
+    {
+      "workflow_id": "fast_2",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.563685",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is 2+2?",
+        "session_id": "workflow_fast_2_1757498208563",
+        "expected_duration": 1.0
+      }
+    },
+    {
+      "workflow_id": "fast_3",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.566691",
+      "thread_id": 21944,
+      "data": {
+        "query": "Hi there",
+        "session_id": "workflow_fast_3_1757498208566",
+        "expected_duration": 1.0
+      }
+    },
+    {
+      "workflow_id": "medium_1",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.568738",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is machine learning?",
+        "session_id": "workflow_medium_1_1757498208568",
+        "expected_duration": 3.0
+      }
+    },
+    {
+      "workflow_id": "medium_2",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.572295",
+      "thread_id": 21944,
+      "data": {
+        "query": "Explain Python programming",
+        "session_id": "workflow_medium_2_1757498208572",
+        "expected_duration": 3.0
+      }
+    },
+    {
+      "workflow_id": "complex_1",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.574383",
+      "thread_id": 21944,
+      "data": {
+        "query": "Compare machine learning and deep learning approaches in detail",
+        "session_id": "workflow_complex_1_1757498208574",
+        "expected_duration": 5.0
+      }
+    },
+    {
+      "workflow_id": "complex_2",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:48.576375",
+      "thread_id": 21944,
+      "data": {
+        "query": "What are the latest developments in artificial intelligence?",
+        "session_id": "workflow_complex_2_1757498208576",
+        "expected_duration": 5.0
+      }
+    },
+    {
+      "workflow_id": "fast_2",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:49.862404",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.2987189292907715,
+        "success": true,
+        "response_length": 13,
+        "tool_used": null,
+        "deviation": 0.2987189292907715
+      }
+    },
+    {
+      "workflow_id": "fast_3",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:50.036445",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.4697539806365967,
+        "success": true,
+        "response_length": 67,
+        "tool_used": null,
+        "deviation": 0.4697539806365967
+      }
+    },
+    {
+      "workflow_id": "fast_1",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:50.202085",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.6403989791870117,
+        "success": true,
+        "response_length": 70,
+        "tool_used": null,
+        "deviation": 0.6403989791870117
+      }
+    },
+    {
+      "workflow_id": "medium_1",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:52.051696",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.4829583168029785,
+        "success": true,
+        "response_length": 630,
+        "tool_used": null,
+        "deviation": 0.4829583168029785
+      }
+    },
+    {
+      "workflow_id": "medium_2",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:54.997658",
+      "thread_id": 21944,
+      "data": {
+        "duration": 6.425362825393677,
+        "success": true,
+        "response_length": 1893,
+        "tool_used": null,
+        "deviation": 3.4253628253936768
+      }
+    },
+    {
+      "workflow_id": "complex_2",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:55.861753",
+      "thread_id": 21944,
+      "data": {
+        "duration": 7.2853782176971436,
+        "success": true,
+        "response_length": 1619,
+        "tool_used": null,
+        "deviation": 2.2853782176971436
+      }
+    },
+    {
+      "workflow_id": "complex_1",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:56:59.824989",
+      "thread_id": 21944,
+      "data": {
+        "duration": 11.250606775283813,
+        "success": true,
+        "response_length": 3420,
+        "tool_used": null,
+        "deviation": 6.2506067752838135
+      }
+    },
+    {
+      "workflow_id": "test_master",
+      "event": "concurrent_test_completed",
+      "timestamp": "2025-09-10T11:56:59.824989",
+      "thread_id": 21944,
+      "data": {
+        "total_duration": 11.264302730560303,
+        "results_count": 7
+      }
+    },
+    {
+      "workflow_id": "isolate_A",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:59.825986",
+      "thread_id": 21944,
+      "data": {
+        "query": "My name is Alice and I work at TechCorp",
+        "session_id": "workflow_isolate_A_1757498219825",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_B",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:59.825986",
+      "thread_id": 21944,
+      "data": {
+        "query": "My name is Bob and I work at DataInc",
+        "session_id": "workflow_isolate_B_1757498219825",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_C",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:56:59.825986",
+      "thread_id": 21944,
+      "data": {
+        "query": "My name is Charlie and I study at University",
+        "session_id": "workflow_isolate_C_1757498219825",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_A",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:00.653219",
+      "thread_id": 21944,
+      "data": {
+        "duration": 0.827233076095581,
+        "success": true,
+        "response_length": 66,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "isolate_B",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:00.668172",
+      "thread_id": 21944,
+      "data": {
+        "duration": 0.842186689376831,
+        "success": true,
+        "response_length": 64,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "isolate_C",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:01.044868",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.2188825607299805,
+        "success": true,
+        "response_length": 70,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "isolate_A_test",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:01.044868",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is my name and where do I work?",
+        "session_id": "workflow_isolate_A_test_1757498221044",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_B_test",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:01.044868",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is my name and where do I work?",
+        "session_id": "workflow_isolate_B_test_1757498221044",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_C_test",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:01.044868",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is my name and where do I work?",
+        "session_id": "workflow_isolate_C_test_1757498221044",
+        "expected_duration": null
+      }
+    },
+    {
+      "workflow_id": "isolate_A_test",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:01.997840",
+      "thread_id": 21944,
+      "data": {
+        "duration": 0.9529716968536377,
+        "success": true,
+        "response_length": 223,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "isolate_C_test",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:02.064470",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.019601583480835,
+        "success": true,
+        "response_length": 246,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "isolate_B_test",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:02.153960",
+      "thread_id": 21944,
+      "data": {
+        "duration": 1.1090915203094482,
+        "success": true,
+        "response_length": 246,
+        "tool_used": null,
+        "deviation": null
+      }
+    },
+    {
+      "workflow_id": "contention_0",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_0_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_1",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_1_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_2",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_2_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_3",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_3_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_4",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_4_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_5",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_5_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_6",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_6_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_7",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.158128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_7_1757498222158",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_8",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.163128",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_8_1757498222163",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_9",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.174011",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_9_1757498222174",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_10",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.188024",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_10_1757498222188",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_11",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.213880",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_11_1757498222213",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_12",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.233946",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_12_1757498222233",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_13",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.240872",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_13_1757498222240",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_14",
+      "event": "workflow_started",
+      "timestamp": "2025-09-10T11:57:02.253892",
+      "thread_id": 21944,
+      "data": {
+        "query": "What is AI?",
+        "session_id": "workflow_contention_14_1757498222253",
+        "expected_duration": 2.0
+      }
+    },
+    {
+      "workflow_id": "contention_1",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:04.737056",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.578927993774414,
+        "success": true,
+        "response_length": 655,
+        "tool_used": null,
+        "deviation": 0.5789279937744141
+      }
+    },
+    {
+      "workflow_id": "contention_3",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:04.859584",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.701456069946289,
+        "success": true,
+        "response_length": 614,
+        "tool_used": null,
+        "deviation": 0.7014560699462891
+      }
+    },
+    {
+      "workflow_id": "contention_11",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:04.861584",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.6477036476135254,
+        "success": true,
+        "response_length": 427,
+        "tool_used": null,
+        "deviation": 0.6477036476135254
+      }
+    },
+    {
+      "workflow_id": "contention_9",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:04.919405",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.7453935146331787,
+        "success": true,
+        "response_length": 441,
+        "tool_used": null,
+        "deviation": 0.7453935146331787
+      }
+    },
+    {
+      "workflow_id": "contention_0",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.013629",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.8555006980895996,
+        "success": true,
+        "response_length": 761,
+        "tool_used": null,
+        "deviation": 0.8555006980895996
+      }
+    },
+    {
+      "workflow_id": "contention_7",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.046399",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.888270139694214,
+        "success": true,
+        "response_length": 630,
+        "tool_used": null,
+        "deviation": 0.8882701396942139
+      }
+    },
+    {
+      "workflow_id": "contention_10",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.071385",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.8833608627319336,
+        "success": true,
+        "response_length": 443,
+        "tool_used": null,
+        "deviation": 0.8833608627319336
+      }
+    },
+    {
+      "workflow_id": "contention_8",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.092036",
+      "thread_id": 21944,
+      "data": {
+        "duration": 2.928908348083496,
+        "success": true,
+        "response_length": 557,
+        "tool_used": null,
+        "deviation": 0.9289083480834961
+      }
+    },
+    {
+      "workflow_id": "contention_4",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.206142",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.048013687133789,
+        "success": true,
+        "response_length": 498,
+        "tool_used": null,
+        "deviation": 1.048013687133789
+      }
+    },
+    {
+      "workflow_id": "contention_13",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.254785",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.0139126777648926,
+        "success": true,
+        "response_length": 499,
+        "tool_used": null,
+        "deviation": 1.0139126777648926
+      }
+    },
+    {
+      "workflow_id": "contention_5",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.340418",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.1822893619537354,
+        "success": true,
+        "response_length": 614,
+        "tool_used": null,
+        "deviation": 1.1822893619537354
+      }
+    },
+    {
+      "workflow_id": "contention_2",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.544646",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.3865180015563965,
+        "success": true,
+        "response_length": 706,
+        "tool_used": null,
+        "deviation": 1.3865180015563965
+      }
+    },
+    {
+      "workflow_id": "contention_14",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:05.859313",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.605421781539917,
+        "success": true,
+        "response_length": 819,
+        "tool_used": null,
+        "deviation": 1.605421781539917
+      }
+    },
+    {
+      "workflow_id": "contention_12",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:06.006928",
+      "thread_id": 21944,
+      "data": {
+        "duration": 3.772982120513916,
+        "success": true,
+        "response_length": 659,
+        "tool_used": null,
+        "deviation": 1.772982120513916
+      }
+    },
+    {
+      "workflow_id": "contention_6",
+      "event": "workflow_completed",
+      "timestamp": "2025-09-10T11:57:06.309083",
+      "thread_id": 21944,
+      "data": {
+        "duration": 4.150954484939575,
+        "success": true,
+        "response_length": 1009,
+        "tool_used": null,
+        "deviation": 2.150954484939575
+      }
+    }
+  ]
+}
